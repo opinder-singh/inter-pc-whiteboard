@@ -32,7 +32,7 @@ public class WhiteBoard extends javax.swing.JFrame {
                     int startX = alDrawing.get(i).startingX;
                     int startY = alDrawing.get(i).startingY;
                     int width = alDrawing.get(i).endingX;
-                    int height = width;
+                    int height = alDrawing.get(i).endingY;
                     if (alDrawing.get(i).isSolid) {
                         g2.fillOval(startX, startY, width, height);
                     } else {
