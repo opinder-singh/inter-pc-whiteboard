@@ -141,22 +141,28 @@ class WhiteBoard extends javax.swing.JFrame {
             alDrawing.add(new Drawing(drawingType, startXRect, startYRect, widthRect, heightRect, stroke, selectedColor, isSolid, null));
         } else if (drawingType.equals("circle")) {
 
+            startXRect = min(actualMouseStartX, endX);
+            startYRect = min(actualMouseStartY, endY);
+            endX = max(actualMouseStartX, endX);
+            endY = max(actualMouseStartY, endY);
             widthRect = endX - startXRect;
-            if (widthRect < 0) {
-                widthRect = abs(widthRect);
-                startXRect = startXRect - widthRect;
-            }
-            heightRect = widthRect;
-
+            heightRect = endY - startYRect;
+            //comment below lines to draw Oval shape//
+            widthRect=max(widthRect,heightRect);
+            heightRect=widthRect;
+            //
             alDrawing.add(new Drawing(drawingType, startXRect, startYRect, widthRect, heightRect, stroke, selectedColor, isSolid, null));
         } else if (drawingType.equals("square")) {
+            startXRect = min(actualMouseStartX, endX);
+            startYRect = min(actualMouseStartY, endY);
+            endX = max(actualMouseStartX, endX);
+            endY = max(actualMouseStartY, endY);
             widthRect = endX - startXRect;
-            if (widthRect < 0) {
-                widthRect = abs(widthRect);
-                startXRect = startXRect - widthRect;
-            }
-            heightRect = widthRect;
-
+            heightRect = endY - startYRect;
+            //
+            widthRect=max(widthRect,heightRect);
+            heightRect=widthRect;
+            //
             alDrawing.add(new Drawing(drawingType, startXRect, startYRect, widthRect, heightRect, stroke, selectedColor, isSolid, null));
         }
         repaint();
@@ -267,7 +273,7 @@ class WhiteBoard extends javax.swing.JFrame {
                 int startX = alDrawing.get(i).startingX;
                 int startY = alDrawing.get(i).startingY;
                 int width = alDrawing.get(i).endingX;
-                int height = width;
+                int height = alDrawing.get(i).endingY;
                 if (alDrawing.get(i).isSolid) {
                     g2.fillOval(startX, startY, width, height);
                 } else {
